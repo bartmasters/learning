@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/binaryAgent.js",
+      "program": "${workspaceFolder}/truthCheck.js",
       "skipFiles": ["<node_internals>/**"]
     },
     {
