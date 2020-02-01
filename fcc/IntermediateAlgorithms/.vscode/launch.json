@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/truthCheck.js",
+      "program": "${workspaceFolder}/addTogether.js",
       "skipFiles": ["<node_internals>/**"]
     },
     {
