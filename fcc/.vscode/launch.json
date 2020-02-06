@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/checkCashRegister.js"
+      "program": "${workspaceFolder}/fcc-react/src/Drumkit.js"
     }
   ]
 }

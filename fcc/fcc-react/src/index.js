@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Markdown from './Markdown';
+//import Markdown from './Markdown';
+import Drumkit from './Drumkit';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<Markdown />, document.getElementById('root'));
+ReactDOM.render(<Drumkit />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
