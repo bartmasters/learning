@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const keys = [
   {
@@ -47,28 +47,15 @@ const keys = [
     clip: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
   }
 ];
-
-// const playTune = e => {
-//   let bob = keys.map(e => e.id).indexOf(e.target.id);
-//   const sounds = document.getElementsByClassName('clip');
-//   sounds[bob].play();
-// };
-
-// const Pad = ({ id, letter, clip, playTune }) => (
-//   <button className="drum-pad" id={id} onClick={e => playTune(e)}>
-//     <audio src={clip} type="audio/mpeg" className="clip" id={letter} />
-//     {letter}
-//   </button>
-// );
+let letterDisplay = 'A';
 
 const Drumkit = () => {
-  const [playedLetter, setPlayed] = useState('');
-
   const playTune = e => {
     let idx = keys.map(e => e.id).indexOf(e.target.id);
+    letterDisplay = keys[idx].letter;
+    console.log(letterDisplay);
     const sounds = document.getElementsByClassName('clip');
     sounds[idx].play();
-    //setPlayed(keys[idx].id);
   };
 
   const Pad = ({ id, letter, clip, playTune }) => (
@@ -91,7 +78,7 @@ const Drumkit = () => {
           />
         ))}
       </div>
-      <div id="display">{playedLetter}</div>
+      <div id="display">{letterDisplay}</div>
     </div>
   );
 };
