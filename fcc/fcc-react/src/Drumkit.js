@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const keys = [
   {
@@ -48,35 +48,52 @@ const keys = [
   }
 ];
 
-const Pad = props => (
-  <div class="drum-pad" id={props.id}>
-    <audio src={props.clip} type="audio/mpeg" class="clip" id={props.letter} />
-    {props.letter}
-  </div>
-);
+// const playTune = e => {
+//   let bob = keys.map(e => e.id).indexOf(e.target.id);
+//   const sounds = document.getElementsByClassName('clip');
+//   sounds[bob].play();
+// };
 
-class Drumkit extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      source: '',
-      markedText: ''
-    };
-  }
+// const Pad = ({ id, letter, clip, playTune }) => (
+//   <button className="drum-pad" id={id} onClick={e => playTune(e)}>
+//     <audio src={clip} type="audio/mpeg" className="clip" id={letter} />
+//     {letter}
+//   </button>
+// );
 
-  render() {
-    return (
-      <div class="outside-box" id="drum-machine">
-        <h1>Bart's Drumkit</h1>
-        <div class="grid">
-          {keys.map(key => (
-            <Pad id={key.id} letter={key.letter} clip={key.clip} />
-          ))}
-        </div>
-        <div id="display">This is the display</div>
+const Drumkit = () => {
+  const [playedLetter, setPlayed] = useState('');
+
+  const playTune = e => {
+    let idx = keys.map(e => e.id).indexOf(e.target.id);
+    const sounds = document.getElementsByClassName('clip');
+    sounds[idx].play();
+    //setPlayed(keys[idx].id);
+  };
+
+  const Pad = ({ id, letter, clip, playTune }) => (
+    <button className="drum-pad" id={id} onClick={e => playTune(e)}>
+      <audio src={clip} type="audio/mpeg" className="clip" id={letter} />
+      {letter}
+    </button>
+  );
+
+  return (
+    <div class="outside-box" id="drum-machine">
+      <h1>Bart's Drumkit</h1>
+      <div class="grid">
+        {keys.map(key => (
+          <Pad
+            id={key.id}
+            letter={key.letter}
+            clip={key.clip}
+            playTune={playTune}
+          />
+        ))}
       </div>
-    );
-  }
-}
+      <div id="display">{playedLetter}</div>
+    </div>
+  );
+};
 
 export default Drumkit;
