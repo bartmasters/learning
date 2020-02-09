@@ -1,5 +1,3 @@
-/* Custom default button */
-
 body {
   color: #fff;
   background-color: #000;
@@ -12,17 +10,26 @@ body {
   width: 50%;
   height: 300px;
   margin: auto;
+  display: flex;
   border: 3px solid #73ad21;
 }
 
 .grid {
-  display: flex; /* establish flex container */
-  flex-wrap: wrap; /* enable flex items to wrap */
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   width: 60%;
 }
-.drum-pad {
-  flex: 0 0 32%; /* don't grow, don't shrink, width */
+.drum-pad,
+.numpad {
+  flex: 0 0 32%;
+  height: 50px;
+  margin-bottom: 5px;
+  background-color: #999;
+  font-weight: bold;
+}
+.controlpad {
+  flex: 0 0 32%;
   height: 50px;
   margin-bottom: 5px;
   background-color: #999;

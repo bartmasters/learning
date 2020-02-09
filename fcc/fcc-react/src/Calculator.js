@@ -40,32 +40,79 @@ const nums = [
   {
     value: 9,
     desc: 'nine'
+  },
+  {
+    value: '.',
+    desc: 'decimal'
+  }
+];
+const funcs = [
+  {
+    value: '=',
+    desc: 'equals'
+  },
+  {
+    value: '+',
+    desc: 'add'
+  },
+  {
+    value: '-',
+    desc: 'subtract'
+  },
+  {
+    value: '*',
+    desc: 'multiply'
+  },
+  {
+    value: '/',
+    desc: 'divide'
+  },
+  {
+    value: 'Clear',
+    desc: 'clear'
   }
 ];
 
 function Calculator() {
   const [display, updateDisplay] = useState('');
-  const handleClick = buttonPressed => {
-    updateDisplay(buttonPressed);
+  const handleNum = buttonPressed => {
+    updateDisplay(display + buttonPressed);
   };
-
+  const handleFunc = buttonPressed => {
+    //updateDisplay(display + buttonPressed);
+  };
   return (
-    <div className="outside-box" id="calculator">
+    <div>
       <h1>Bart's Calculator</h1>
-      <div className="grid">
-        {nums.map(num => (
-          <button
-            className="numpad"
-            id={num.desc}
-            onClick={() => {
-              handleClick(num.value);
-            }}
-          >
-            {num.value}
-          </button>
-        ))}
+      <div className="outside-box" id="calculator">
+        <div className="grid">
+          {nums.map(num => (
+            <button
+              className="numpad"
+              id={num.desc}
+              onClick={() => {
+                handleNum(num.value);
+              }}
+            >
+              {num.value}
+            </button>
+          ))}
+        </div>
+        <div className="grid">
+          {funcs.map(f => (
+            <button
+              className="controlpad"
+              id={f.desc}
+              onClick={() => {
+                handleFunc(f.value);
+              }}
+            >
+              {f.value}
+            </button>
+          ))}
+        </div>
+        <div id="display">{display}</div>
       </div>
-      <div id="display">{display}</div>
     </div>
   );
 }
