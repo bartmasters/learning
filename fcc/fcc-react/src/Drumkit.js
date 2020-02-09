@@ -61,11 +61,11 @@ class Drumkit extends React.Component {
   render() {
     const playTune = e => {
       let idx = keys.map(e => e.id).indexOf(e.target.id);
-      const sound = document.getElementsByClassName('clip')[idx];
-      sound.currentTime = 0;
-      sound.play();
+      const url = document.getElementsByClassName('clip')[idx];
+      let audio = new Audio(url);
+      //sound.currentTime = 0;
+      audio.play();
       //this.setState({ myLetter: keys[idx].id });
-      console.log(e);
       //this.props.updateDisplay('b');
     };
 
