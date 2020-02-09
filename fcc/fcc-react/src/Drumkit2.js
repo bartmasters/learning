@@ -48,53 +48,64 @@ const keys = [
   }
 ];
 
-class Drumkit extends React.Component {
+class Drumkit2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       myLetter: ''
     };
+    this.handleClick = this.handleClick.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
   }
-  updateDisplay({ letter }) {
+  handleClick(letter, sound) {
     this.setState({ myLetter: letter });
+    let audio = new Audio(sound);
+    audio.play();
   }
+  onKeyPress = event => {
+    const keyName = event.key;
+    let keyPressed = ' ';
+
+    for (let i = 0; i < keys.length; i++) {
+      if (keyName === keys[i].letter.toLowerCase()) {
+        var audio = new Audio(keys[i].clip);
+        audio.play();
+        keyPressed = keys[i].id;
+        this.setState({ myLetter: keyPressed });
+      }
+    }
+  };
   render() {
-    const playTune = e => {
-      let idx = keys.map(e => e.id).indexOf(e.target.id);
-      const sound = document.getElementsByClassName('clip')[idx];
-      sound.currentTime = 0;
-      sound.play();
-      //this.setState({ myLetter: keys[idx].id });
-      console.log(e);
-      //this.props.updateDisplay('b');
-    };
-
-    const Pad = ({ id, letter, clip, playTune }) => (
-      <button className="drum-pad" id={id} onClick={e => playTune(e)}>
-        <audio src={clip} type="audio/mpeg" className="clip" id={letter} />
-        {letter}
-      </button>
-    );
-    const Display = ({ letter }) => <div id="display">{letter}</div>;
-
     return (
-      <div className="outside-box" id="drum-machine">
+      <div
+        className="outside-box"
+        id="drum-machine"
+        onKeyPress={this.onKeyPress}
+      >
         <h1>Bart's Drumkit</h1>
         <div className="grid">
           {keys.map(key => (
-            <Pad
+            <button
+              className="drum-pad"
               id={key.id}
-              letter={key.letter}
-              clip={key.clip}
-              playTune={playTune}
-              updateDisplay={this.updateDisplay}
-            />
+              onClick={() => {
+                this.handleClick(key.id, key.clip);
+              }}
+            >
+              {key.letter}
+              <audio
+                src={key.clip}
+                type="audio/mpeg"
+                className="clip"
+                id={key.letter}
+              />
+            </button>
           ))}
         </div>
-        <Display />
+        <div id="display">{this.state.myLetter}</div>
       </div>
     );
   }
 }
 
-export default Drumkit;
+export default Drumkit2;
