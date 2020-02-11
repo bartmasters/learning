@@ -65,7 +65,20 @@ function Calculator() {
     //updateDisplay(display + buttonPressed);
   };
   const handleNum = buttonPressed => {
-    updateDisplay(display + buttonPressed);
+    let tempDisplay = display;
+    // If the number already has a decimal point, don't put more in
+    if (buttonPressed === '.') {
+      tempDisplay =
+        tempDisplay.indexOf('.') >= 0
+          ? tempDisplay
+          : tempDisplay + buttonPressed;
+    } else {
+      tempDisplay = tempDisplay + buttonPressed;
+    }
+
+    // Strip out any leading zeroes.
+    tempDisplay = tempDisplay.replace(/\b0+\B/, '');
+    updateDisplay(tempDisplay);
   };
   const handleSubtract = buttonPressed => {
     updateDisplay(display + buttonPressed);
