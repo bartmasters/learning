@@ -46,40 +46,29 @@ const nums = [
     desc: 'decimal'
   }
 ];
-const funcs = [
-  {
-    value: '=',
-    desc: 'equals'
-  },
-  {
-    value: '+',
-    desc: 'add'
-  },
-  {
-    value: '-',
-    desc: 'subtract'
-  },
-  {
-    value: '*',
-    desc: 'multiply'
-  },
-  {
-    value: '/',
-    desc: 'divide'
-  },
-  {
-    value: 'Clear',
-    desc: 'clear'
-  }
-];
 
 function Calculator() {
   const [display, updateDisplay] = useState('');
+  const handleAdd = buttonPressed => {
+    //updateDisplay(display + buttonPressed);
+  };
+  const handleClear = buttonPressed => {
+    updateDisplay('0');
+  };
+  const handleDivide = buttonPressed => {
+    //updateDisplay(display + buttonPressed);
+  };
+  const handleEquals = buttonPressed => {
+    updateDisplay(display + buttonPressed);
+  };
+  const handleMultiply = buttonPressed => {
+    //updateDisplay(display + buttonPressed);
+  };
   const handleNum = buttonPressed => {
     updateDisplay(display + buttonPressed);
   };
-  const handleFunc = buttonPressed => {
-    //updateDisplay(display + buttonPressed);
+  const handleSubtract = buttonPressed => {
+    updateDisplay(display + buttonPressed);
   };
   return (
     <div>
@@ -99,17 +88,60 @@ function Calculator() {
           ))}
         </div>
         <div className="grid">
-          {funcs.map(f => (
-            <button
-              className="controlpad"
-              id={f.desc}
-              onClick={() => {
-                handleFunc(f.value);
-              }}
-            >
-              {f.value}
-            </button>
-          ))}
+          <button
+            className="controlpad"
+            id="equals"
+            onClick={() => {
+              handleEquals();
+            }}
+          >
+            {'='}
+          </button>
+          <button
+            className="controlpad"
+            id="add"
+            onClick={() => {
+              handleAdd();
+            }}
+          >
+            {'+'}
+          </button>
+          <button
+            className="controlpad"
+            id="subtract"
+            onClick={() => {
+              handleSubtract();
+            }}
+          >
+            {'-'}
+          </button>
+          <button
+            className="controlpad"
+            id="multiply"
+            onClick={() => {
+              handleMultiply();
+            }}
+          >
+            {'*'}
+          </button>
+          <button
+            className="controlpad"
+            id="divide"
+            onClick={() => {
+              handleDivide();
+            }}
+          >
+            {'/'}
+          </button>
+          <button
+            className="controlpad"
+            id="clear"
+            onClick={() => {
+              handleClear();
+            }}
+          >
+            {'AC'}
+          </button>
         </div>
         <div id="display">{display}</div>
       </div>
