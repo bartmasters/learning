@@ -49,38 +49,68 @@ const nums = [
 
 function Calculator() {
   const [display, setDisplay] = useState('');
-  //const [operands, setOperands] = useState(['']);
 
-  const handleAdd = buttonPressed => {
-    //setOperands(operands => [...operands, display]);
+  const handleOperands = buttonPressed => {
     setDisplay(display + buttonPressed);
-    //setOperands(operands => [...operands, '+']);
   };
   const handleClear = buttonPressed => {
     setDisplay('0');
-    //setOperands(['']);
-  };
-  const handleDivide = buttonPressed => {
-    //updateDisplay(display + buttonPressed);
   };
   const handleEquals = buttonPressed => {
-    //setDisplay(display + buttonPressed);
-    let operands = display.split(/(\+|-)/g);
-    console.log(operands);
-  };
-  const handleMultiply = buttonPressed => {
-    //updateDisplay(display + buttonPressed);
+    let operands = display.split(/(\+|-|\/|\*)/g);
+    let accum = 0;
+    let operator = 'a';
+    let operator2 = '';
+
+    operands.forEach(num => {
+      if (num === '') {
+        if (operator === '') {
+          operator2 = 'negative';
+        }
+      }
+      if (isNaN(num)) {
+        if (num !== '') {
+          // deal with operators
+          if (operator === '') {
+            operator2 = 'negative';
+          }
+          if (operator !== 'negative') {
+            operator = num;
+          } else {
+            operator2 = num;
+          }
+        }
+      } else {
+        let num2 = num;
+        if (operator2 === 'negative') {
+          num2 *= -1;
+        }
+        switch (operator) {
+          case '+':
+            accum += parseFloat(num2);
+            operator = '';
+            break;
+          case '-':
+            accum -= num2;
+            operator = '';
+            break;
+          case '*':
+            accum *= num2;
+            operator = '';
+            break;
+          case '/':
+            accum /= num2;
+            operator = '';
+            break;
+          default:
+            accum = parseFloat(num2);
+        }
+      }
+    });
+    setDisplay(accum);
   };
   const handleNum = buttonPressed => {
-    // Get the most recent operand in the array
-    // If its a number, append the input to it
-    // If its an operator, put the number in a new array entry.
-
-    //let tempDisplay = operands[operands.length - 1];
     let tempDisplay = display;
-    // if (isNaN(tempDisplay)) {
-    //   setOperands(operands => [...operands, buttonPressed]);
-    // } else {
     // If the number already has a decimal point, don't put more in
     if (buttonPressed === '.') {
       tempDisplay =
@@ -92,13 +122,8 @@ function Calculator() {
     }
 
     // Strip out any leading zeroes.
-    tempDisplay = tempDisplay.replace(/\b0+\B/, '');
+    tempDisplay = tempDisplay.toString().replace(/\b0+\B/, '');
     setDisplay(tempDisplay);
-    //setOperands([tempDisplay]);
-    // }
-  };
-  const handleSubtract = buttonPressed => {
-    //setDisplay(display + buttonPressed);
   };
   return (
     <div>
@@ -131,7 +156,7 @@ function Calculator() {
             className="controlpad"
             id="add"
             onClick={() => {
-              handleAdd('+');
+              handleOperands('+');
             }}
           >
             {'+'}
@@ -140,7 +165,7 @@ function Calculator() {
             className="controlpad"
             id="subtract"
             onClick={() => {
-              handleSubtract();
+              handleOperands('-');
             }}
           >
             {'-'}
@@ -149,7 +174,7 @@ function Calculator() {
             className="controlpad"
             id="multiply"
             onClick={() => {
-              handleMultiply();
+              handleOperands('*');
             }}
           >
             {'*'}
@@ -158,7 +183,7 @@ function Calculator() {
             className="controlpad"
             id="divide"
             onClick={() => {
-              handleDivide();
+              handleOperands('/');
             }}
           >
             {'/'}
