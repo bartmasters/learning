@@ -48,24 +48,39 @@ const nums = [
 ];
 
 function Calculator() {
-  const [display, updateDisplay] = useState('');
+  const [display, setDisplay] = useState('');
+  //const [operands, setOperands] = useState(['']);
+
   const handleAdd = buttonPressed => {
-    //updateDisplay(display + buttonPressed);
+    //setOperands(operands => [...operands, display]);
+    setDisplay(display + buttonPressed);
+    //setOperands(operands => [...operands, '+']);
   };
   const handleClear = buttonPressed => {
-    updateDisplay('0');
+    setDisplay('0');
+    //setOperands(['']);
   };
   const handleDivide = buttonPressed => {
     //updateDisplay(display + buttonPressed);
   };
   const handleEquals = buttonPressed => {
-    updateDisplay(display + buttonPressed);
+    //setDisplay(display + buttonPressed);
+    let operands = display.split(/(\+|-)/g);
+    console.log(operands);
   };
   const handleMultiply = buttonPressed => {
     //updateDisplay(display + buttonPressed);
   };
   const handleNum = buttonPressed => {
+    // Get the most recent operand in the array
+    // If its a number, append the input to it
+    // If its an operator, put the number in a new array entry.
+
+    //let tempDisplay = operands[operands.length - 1];
     let tempDisplay = display;
+    // if (isNaN(tempDisplay)) {
+    //   setOperands(operands => [...operands, buttonPressed]);
+    // } else {
     // If the number already has a decimal point, don't put more in
     if (buttonPressed === '.') {
       tempDisplay =
@@ -78,10 +93,12 @@ function Calculator() {
 
     // Strip out any leading zeroes.
     tempDisplay = tempDisplay.replace(/\b0+\B/, '');
-    updateDisplay(tempDisplay);
+    setDisplay(tempDisplay);
+    //setOperands([tempDisplay]);
+    // }
   };
   const handleSubtract = buttonPressed => {
-    updateDisplay(display + buttonPressed);
+    //setDisplay(display + buttonPressed);
   };
   return (
     <div>
@@ -114,7 +131,7 @@ function Calculator() {
             className="controlpad"
             id="add"
             onClick={() => {
-              handleAdd();
+              handleAdd('+');
             }}
           >
             {'+'}
