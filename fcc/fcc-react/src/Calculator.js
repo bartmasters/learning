@@ -107,8 +107,9 @@ function Calculator() {
     let tempDisplay = display;
     // If the number already has a decimal point, don't put more in
     if (buttonPressed === '.') {
+      let splitNum = tempDisplay.split(/(\+|-|\/|\*)/g);
       tempDisplay =
-        tempDisplay.indexOf('.') >= 0
+        splitNum[splitNum.length - 1].indexOf('.') >= 0
           ? tempDisplay
           : tempDisplay + buttonPressed;
     } else {
