@@ -64,21 +64,15 @@ function Calculator() {
 
     operands.forEach(num => {
       if (num === '') {
-        if (operator === '') {
-          operator2 = 'negative';
-        }
+        operator2 = 'negative';
+        return;
       }
       if (isNaN(num)) {
-        if (num !== '') {
-          // deal with operators
-          if (operator === '') {
-            operator2 = 'negative';
-          }
-          if (operator !== 'negative') {
-            operator = num;
-          } else {
-            operator2 = num;
-          }
+        if (operator2 === 'negative' && num === '-') {
+          return;
+        } else {
+          operator = num;
+          operator2 = '';
         }
       } else {
         let num2 = num;
@@ -95,7 +89,7 @@ function Calculator() {
             operator = '';
             break;
           case '*':
-            accum *= num2;
+            accum *= parseFloat(num2);
             operator = '';
             break;
           case '/':
