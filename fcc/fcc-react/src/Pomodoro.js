@@ -1,155 +1,33 @@
 import React, { useState } from 'react';
 
 function Pomodoro() {
-  const [display, setDisplay] = useState('');
+  const [timeLeft, setTimeLeft] = useState('60');
 
-  const handleOperands = buttonPressed => {
-    setDisplay(display + buttonPressed);
+  const handleStartStop = () => {
+    //setisplay('0');
   };
-  const handleClear = buttonPressed => {
-    setDisplay('0');
-  };
-  const handleEquals = buttonPressed => {
-    let operands = display.split(/(\+|-|\/|\*)/g);
-    let accum = 0;
-    let operator = 'a';
-    let operator2 = '';
 
-    operands.forEach(num => {
-      if (num === '') {
-        operator2 = 'negative';
-        return;
-      }
-      if (isNaN(num)) {
-        if (operator2 === 'negative' && num === '-') {
-          return;
-        } else {
-          operator = num;
-          operator2 = '';
-        }
-      } else {
-        let num2 = num;
-        if (operator2 === 'negative') {
-          num2 *= -1;
-        }
-        switch (operator) {
-          case '+':
-            accum += parseFloat(num2);
-            operator = '';
-            break;
-          case '-':
-            accum -= num2;
-            operator = '';
-            break;
-          case '*':
-            accum *= parseFloat(num2);
-            operator = '';
-            break;
-          case '/':
-            accum /= num2;
-            operator = '';
-            break;
-          default:
-            accum = parseFloat(num2);
-        }
-      }
-    });
-    setDisplay(accum);
-  };
-  const handleNum = buttonPressed => {
-    let tempDisplay = display;
-    // If the number already has a decimal point, don't put more in
-    if (buttonPressed === '.') {
-      let splitNum = tempDisplay.split(/(\+|-|\/|\*)/g);
-      tempDisplay =
-        splitNum[splitNum.length - 1].indexOf('.') >= 0
-          ? tempDisplay
-          : tempDisplay + buttonPressed;
-    } else {
-      tempDisplay = tempDisplay + buttonPressed;
-    }
-
-    // Strip out any leading zeroes.
-    tempDisplay = tempDisplay.toString().replace(/\b0+\B/, '');
-    setDisplay(tempDisplay);
-  };
   return (
     <div>
-      <h1>Bart's Calculator</h1>
+      <h1>Bart's Pomodoro</h1>
       <div className="outside-box" id="calculator">
         <div className="grid">
-          {nums.map(num => (
-            <button
-              className="numpad"
-              id={num.desc}
-              onClick={() => {
-                handleNum(num.value);
-              }}
-            >
-              {num.value}
-            </button>
-          ))}
-        </div>
-        <div className="grid">
           <button
             className="controlpad"
-            id="equals"
+            id="start_stop"
             onClick={() => {
-              handleEquals();
+              handleStartStop();
             }}
           >
-            {'='}
-          </button>
-          <button
-            className="controlpad"
-            id="add"
-            onClick={() => {
-              handleOperands('+');
-            }}
-          >
-            {'+'}
-          </button>
-          <button
-            className="controlpad"
-            id="subtract"
-            onClick={() => {
-              handleOperands('-');
-            }}
-          >
-            {'-'}
-          </button>
-          <button
-            className="controlpad"
-            id="multiply"
-            onClick={() => {
-              handleOperands('*');
-            }}
-          >
-            {'*'}
-          </button>
-          <button
-            className="controlpad"
-            id="divide"
-            onClick={() => {
-              handleOperands('/');
-            }}
-          >
-            {'/'}
-          </button>
-          <button
-            className="controlpad"
-            id="clear"
-            onClick={() => {
-              handleClear();
-            }}
-          >
-            {'AC'}
+            {'Start/Stop'}
           </button>
         </div>
-        <div id="display">{display}</div>
+        <div id="time-left">{timeLeft}</div>
       </div>
     </div>
   );
 }
 
 export default Pomodoro;
+
+// https://medium.com/@kristin_baumann/react-countdown-6455838b6faf
