@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 
 function Pomodoro() {
   const [timeLeft, setTimeLeft] = useState('60');
+  const [startStop, setStartStop] = useState('stop');
 
   const handleStartStop = () => {
+    if (startStop === 'start') {
+      setStartStop('stop');
+    } else {
+      setStartStop('start');
+    }
     //setisplay('0');
   };
 
