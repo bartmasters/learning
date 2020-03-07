@@ -42,24 +42,24 @@ app.get('/api/hello', (req, res) => {
 
 app.post('/api/shorturl/new', (req, res) => {
   let originalUrl = req.body.url;
+  let newUrl = '';
   let findIt = ShortUrl.find()
     .sort({ shortUrl: -1 })
     .limit(1);
   findIt.exec((err, data) => {
     if (err) console.log(err);
-    console.log(data);
-    let newUrl = data.shortUrl ? data.ShortUrl++ : 1;
+    let currUrl = data[0].shortUrl;
+    newUrl = currUrl ? currUrl + 1 : 1;
     const shortUrl = new ShortUrl({
       sourceUrl: originalUrl,
       shortUrl: newUrl
     });
-    // shortUrl.save((err, data) => {
-    //   if (err) console.log(err);
-    // });
-
-    console.log(shortUrl);
+    console.log(newUrl);
+    shortUrl.save((err, data) => {
+      if (err) console.log(err);
+      res.json({ original_url: originalUrl, short_url: newUrl });
+    });
   });
-  res.json({ original_url: originalUrl });
 });
 
 app.listen(port, () => {
