@@ -24,7 +24,14 @@ module.exports = function (app) {
       returnNum,
       returnUnit
     );
-
-    //res.json
+    let data = {
+      initNum: initNum,
+      initUnit: initUnit,
+      returnNum: returnNum,
+      returnUnit: returnUnit,
+      string: toString,
+    };
+    res.status(200).send;
+    res.json(data);
   });
 };

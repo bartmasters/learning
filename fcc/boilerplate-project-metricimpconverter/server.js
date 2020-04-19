@@ -2,12 +2,15 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let expect = require('chai').expect;
 let cors = require('cors');
+const helmet = require('helmet');
 
 let apiRoutes = require('./routes/api.js');
 let fccTestingRoutes = require('./routes/fcctesting.js');
 let runner = require('./test-runner');
 
 let app = express();
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
